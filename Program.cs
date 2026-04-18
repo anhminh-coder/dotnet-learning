@@ -17,7 +17,8 @@ builder.Services
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
     });
 builder.Services.AddApiVersioning();
-builder.Services.AddOpenApi();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 // Database
 builder.Services.AddDbContext<ApplicationDBContext>(options =>
@@ -51,10 +52,10 @@ var app = builder.Build();
 // --------------------
 // Middleware
 // --------------------
-
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
