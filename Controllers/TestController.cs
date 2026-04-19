@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Project1.Controllers;
 
-[ApiController]
-[Route("api/test")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/test")]
 public class TestController : ControllerBase
 {
     [HttpGet]
