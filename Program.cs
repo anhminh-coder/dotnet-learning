@@ -47,6 +47,8 @@ builder.Services.AddSingleton<IMapper>(sp =>
 builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
+builder.Services.AddScoped<BlobService>();
+
 var app = builder.Build();
 
 // --------------------
