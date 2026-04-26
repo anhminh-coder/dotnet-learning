@@ -8,6 +8,8 @@ public class BlobService
     public BlobService(IConfiguration config)
     {
         var accountName = config["AzureBlob:AccountName"];
+        
+        Console.WriteLine($"AzureBlob AccountName = '{accountName}'");
 
         _blobServiceClient = new BlobServiceClient(
             new Uri($"https://{accountName}.blob.core.windows.net"),
