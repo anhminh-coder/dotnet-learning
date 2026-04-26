@@ -1,19 +1,24 @@
+using Azure.Identity;
 using Azure.Storage.Blobs;
 
 public class BlobService
 {
-    private readonly string _connectionString = "";
+    private readonly BlobServiceClient _blobServiceClient;
 
     public BlobService(IConfiguration config)
     {
-        _connectionString = config["AzureBlob:ConnectionString"];
+        var accountName = config["AzureBlob:AccountName"];
+
+        _blobServiceClient = new BlobServiceClient(
+            new Uri($"https://{accountName}.blob.core.windows.net"),
+            new DefaultAzureCredential()
+        );
     }
 
     public async Task<string> UploadAsync(IFormFile file)
     {
-        var blobServiceClient = new BlobServiceClient(_connectionString);
-
-        var containerClient = blobServiceClient.GetBlobContainerClient("images");
+        var containerClient =
+            _blobServiceClient.GetBlobContainerClient("images");
 
         var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
 
